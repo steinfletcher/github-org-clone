@@ -1,5 +1,7 @@
 # github-team-clone
 
+[![CircleCI](https://circleci.com/gh/steinfletcher/github-team-clone.svg?style=svg&circle-token=063b1b1e0354cc424a2823c33ff4a2b66e029bae)](https://circleci.com/gh/steinfletcher/github-team-clone)
+
 A simple cli app to clone all repos managed by a github team
 
 ## Install
