@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Winners",
+    "id": 2285788,
+    "slug": "winners",
+    "description": "",
+    "privacy": "secret",
+    "url": "https://api.github.com/teams/2285788",
+    "members_url": "https://api.github.com/teams/2285788/members{/member}",
+    "repositories_url": "https://api.github.com/teams/2285788/repos",
+    "permission": "pull"
+  }
+]
