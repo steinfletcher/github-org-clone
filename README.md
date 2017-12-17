@@ -2,13 +2,13 @@
 
 [![CircleCI](https://circleci.com/gh/steinfletcher/github-team-clone.svg?style=svg&circle-token=063b1b1e0354cc424a2823c33ff4a2b66e029bae)](https://circleci.com/gh/steinfletcher/github-team-clone)
 
-A simple cli app to clone all repos managed by a github team
+A simple cli app to clone all repos managed by a github team. Requires that you pass a github api key (personal access token) and github username to the script or set the `GITHUB_TOKEN` and `GITHUB_USER` environment variable. See the help output below.
 
 ## Install
 
     go install github.com/steinfletcher/github-team-clone
 
-## Usage
+## Use
 
     github-team-clone -o MyOrg -t MyTeam
 
