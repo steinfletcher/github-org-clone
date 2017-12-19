@@ -6,6 +6,7 @@ import (
 	"github.com/steinfletcher/github-team-clone/github"
 	"github.com/steinfletcher/github-team-clone/teamclone"
 	"github.com/apex/log"
+	"github.com/steinfletcher/github-team-clone/shell"
 )
 
 func main() {
@@ -67,8 +68,9 @@ func main() {
 			die("github organisation (-o) not set", c)
 		}
 
+		s := shell.NewShell()
 		githubCli := github.NewGithub(username, token)
-		cloner := teamclone.NewCloner(githubCli, dir)
+		cloner := teamclone.NewCloner(githubCli, s, dir)
 
 		err := cloner.CloneTeamRepos(org, team)
 		if err != nil {

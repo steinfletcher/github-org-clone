@@ -4,8 +4,8 @@ import (
 	"github.com/steinfletcher/github-team-clone/github"
 	"errors"
 	"fmt"
-	"os/exec"
 	"sync"
+	"github.com/steinfletcher/github-team-clone/shell"
 )
 
 type Cloner interface {
@@ -14,11 +14,12 @@ type Cloner interface {
 
 type teamCloner struct {
 	githubCli github.Github
+	shell shell.Shell
 	dir string
 }
 
-func NewCloner(g github.Github, dir string) Cloner {
-	return &teamCloner{g, dir}
+func NewCloner(g github.Github, shell shell.Shell, dir string) Cloner {
+	return &teamCloner{g, shell, dir}
 }
 
 func (tC * teamCloner) CloneTeamRepos(org string, team string) error {
@@ -42,24 +43,16 @@ func (tC * teamCloner) CloneTeamRepos(org string, team string) error {
 	for _, repo := range repos {
 		fmt.Println(fmt.Sprintf("Cloning %s", repo.Name))
 		wg.Add(1)
-		go clone(&wg, repo.SshUrl, repo.Name, tC.dir)
+		go tC.clone(&wg, repo.SshUrl, repo.Name, tC.dir)
 	}
 
 	wg.Wait()
 	return nil
 }
 
-func clone(wg *sync.WaitGroup, sshUrl string, repoName string, dir string) {
+func (tC *teamCloner) clone(wg *sync.WaitGroup, sshUrl string, repoName string, dir string) {
 	defer wg.Done()
-
-	out, err := exec.Command(
-		"git", "clone", sshUrl, fmt.Sprintf("%s/%s", dir, repoName)).Output()
-
-	if err != nil {
-		fmt.Printf("%s", err)
-	} else {
-		fmt.Printf("%s", out)
-	}
+	tC.shell.Exec("git", []string{"clone", sshUrl, fmt.Sprintf("%s/%s", dir, repoName)})
 }
 
 func teamId(teams []github.Team, team string) (error, int) {
