@@ -1,4 +1,4 @@
-package teamclone
+package cloner
 
 import (
 	"testing"

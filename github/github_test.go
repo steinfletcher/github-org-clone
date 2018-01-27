@@ -17,7 +17,7 @@ func TestFetchTeams(t *testing.T) {
 
 	githubCli := NewGithub("username", "password")
 
-	_, teams := githubCli.OrganisationTeams("MyOrg")
+	_, teams := githubCli.Teams("MyOrg")
 
 	assert.Equal(t, teams[0].Name, "Winners")
 	assert.Equal(t, teams[0].Id, 2285788)

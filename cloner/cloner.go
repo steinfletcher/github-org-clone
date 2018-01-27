@@ -1,4 +1,4 @@
-package teamclone
+package cloner
 
 import (
 	"github.com/steinfletcher/github-team-clone/github"
@@ -9,7 +9,7 @@ import (
 )
 
 type Cloner interface {
-	CloneTeamRepos(org string, team string) error
+	Clone(org string, team string) error
 }
 
 type teamCloner struct {
@@ -22,20 +22,30 @@ func NewCloner(g github.Github, shell shell.Shell, dir string) Cloner {
 	return &teamCloner{g, shell, dir}
 }
 
-func (tC * teamCloner) CloneTeamRepos(org string, team string) error {
-	err, teams := tC.githubCli.OrganisationTeams(org)
-	if err != nil {
-		return err
-	}
+func (tC * teamCloner) Clone(org string, team string) error {
+	var repos []github.Repo
+	var err error
 
-	err, teamId := teamId(teams, team)
-	if err != nil {
-		return err
-	}
+	if team == "" {
+		err, repos = tC.githubCli.OrgRepos(org)
+		if err != nil {
+			return err
+		}
+	} else {
+		e, teams := tC.githubCli.Teams(org)
+		if e != nil {
+			return e
+		}
 
-	err, repos := tC.githubCli.TeamRepos(teamId)
-	if err != nil {
-		return err
+		e, teamId := teamId(teams, team)
+		if e != nil {
+			return e
+		}
+
+		e, repos = tC.githubCli.TeamRepos(teamId)
+		if e != nil {
+			return e
+		}
 	}
 
 	var wg sync.WaitGroup

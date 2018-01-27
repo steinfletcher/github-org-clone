@@ -1,23 +1,26 @@
-# github-team-clone
+# github-org-clone
 
-[![CircleCI](https://circleci.com/gh/steinfletcher/github-team-clone.svg?style=svg&circle-token=063b1b1e0354cc424a2823c33ff4a2b66e029bae)](https://circleci.com/gh/steinfletcher/github-team-clone)
+[![CircleCI](https://circleci.com/gh/steinfletcher/github-org-clone.svg?style=svg&circle-token=063b1b1e0354cc424a2823c33ff4a2b66e029bae)](https://circleci.com/gh/steinfletcher/github-org-clone)
 
-A simple cli app to clone all repos managed by a github team. Requires that you pass a github api key (personal access token) and github username to the script or set the `GITHUB_TOKEN` and `GITHUB_USER` environment variable. See the help output below.
+A simple cli app to clone all repos managed by a github organisation or team.
+Requires that you pass a github api key (personal access token) and github username to the script or set the `GITHUB_TOKEN` and `GITHUB_USER` environment variable. See the help output below.
 
 ## Install
 
-    go install github.com/steinfletcher/github-team-clone
+    go get github.com/steinfletcher/github-team-clone
 
 ## Use
 
-    github-team-clone -o MyOrg -t MyTeam
+    github-org-clone -o MyOrg -t MyTeam
+
+where team (-t) is optional.
 
 ```bash
 NAME:
 github-team-clone - clone github team repos
 
 USAGE:
-     $ github-team-clone -o MyOrg -t MyTeam
+     $ github-org-clone -o MyOrg -t MyTeam
 
 VERSION:
 0.0.1

@@ -20,8 +20,9 @@ type githubCli struct {
 }
 
 type Github interface {
-	OrganisationTeams(org string) (error, []Team)
+	Teams(org string) (error, []Team)
 	TeamRepos(teamId int) (error, []Repo)
+	OrgRepos(org string) (error, []Repo)
 }
 
 type Team struct {
@@ -34,7 +35,7 @@ type Repo struct {
 	Name   string `json:"name"`
 }
 
-func (g *githubCli) OrganisationTeams(org string) (error, []Team) {
+func (g *githubCli) Teams(org string) (error, []Team) {
 	err, resp := doGet(fmt.Sprintf("https://api.github.com/orgs/%s/teams", org), g.username, g.apiToken)
 	defer resp.Body.Close()
 	if err != nil {
@@ -72,6 +73,32 @@ func (g *githubCli) TeamRepos(teamId int) (error, []Repo) {
 	return nil, repos
 }
 
+func (g *githubCli) OrgRepos(org string) (error, []Repo) {
+	var page = 1
+	var repos []Repo
+	for {
+		err, res := doGet(fmt.Sprintf("https://api.github.com/orgs/%s/repos?page=%d", org, page), g.username, g.apiToken)
+		if err != nil {
+			return err, nil
+		}
+
+		bytes, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return err, nil
+		}
+		result := make([]Repo, 0)
+		json.Unmarshal(bytes, &result)
+		repos = append(repos, result...)
+
+		if hasNextPage(res) {
+			page++
+		} else {
+			break
+		}
+	}
+	return nil, repos
+}
+
 func doGet(url string, username string, apiToken string) (error, *http.Response) {
 	httpClient := http.Client{Timeout: time.Second * 5}
 	request, _ := http.NewRequest(http.MethodGet, fmt.Sprintf(url), nil)
@@ -83,11 +110,15 @@ func doGet(url string, username string, apiToken string) (error, *http.Response)
 		return err, nil
 	}
 
-	if response.StatusCode > 200 && response.StatusCode < 300 {
+	if !isSuccess(response) {
 		return errors.New(fmt.Sprintf("Error, github returned status=%s", response.StatusCode)), nil
 	}
 
 	return nil, response
+}
+
+func isSuccess(r *http.Response) bool {
+	return r.StatusCode >= 200 && r.StatusCode < 300
 }
 
 func hasNextPage(response *http.Response) bool {

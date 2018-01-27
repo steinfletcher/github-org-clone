@@ -4,9 +4,9 @@ import (
 	"os"
 	"github.com/urfave/cli"
 	"github.com/steinfletcher/github-team-clone/github"
-	"github.com/steinfletcher/github-team-clone/teamclone"
-	"github.com/apex/log"
 	"github.com/steinfletcher/github-team-clone/shell"
+	"github.com/steinfletcher/github-team-clone/cloner"
+	"log"
 )
 
 func main() {
@@ -60,19 +60,15 @@ func main() {
 			die("env var GITHUB_TOKEN or flag -k must be set", c)
 		}
 
-		if len(team) == 0 {
-			die("github team (-t) not set", c)
-		}
-
 		if len(org) == 0 {
 			die("github organisation (-o) not set", c)
 		}
 
-		s := shell.NewShell()
+		sh := shell.NewShell()
 		githubCli := github.NewGithub(username, token)
-		cloner := teamclone.NewCloner(githubCli, s, dir)
+		cl := cloner.NewCloner(githubCli, sh, dir)
 
-		err := cloner.CloneTeamRepos(org, team)
+		err := cl.Clone(org, team)
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}
