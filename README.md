@@ -17,7 +17,7 @@ where team (-t) is optional.
 
 ```bash
 NAME:
-github-team-clone - clone github team repos
+github-org-clone - clone github team repos
 
 USAGE:
      $ github-org-clone -o MyOrg -t MyTeam
