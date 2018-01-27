@@ -7,7 +7,7 @@ Requires that you pass a github api key (personal access token) and github usern
 
 ## Install
 
-    go get github.com/steinfletcher/github-team-clone
+    go get github.com/steinfletcher/github-org-clone
 
 ## Use
 
