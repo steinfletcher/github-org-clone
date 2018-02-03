@@ -11,9 +11,14 @@ Requires that you pass a github api key (personal access token) and github usern
 
 ## Use
 
+Clone team repos
+
     github-org-clone -o MyOrg -t MyTeam
 
-where team (-t) is optional.
+
+Clone orgnisation repos
+
+    github-org-clone -o MyOrg
 
 ```bash
 NAME:
