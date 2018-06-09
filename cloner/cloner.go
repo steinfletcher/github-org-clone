@@ -49,19 +49,24 @@ func (tC *teamCloner) Clone(org string, team string) error {
 		}
 	}
 
+	sem := make(chan struct{}, 12)
 	var wg sync.WaitGroup
 
 	for _, repo := range repos {
 		fmt.Println(fmt.Sprintf("Cloning %s", repo.Name))
 		wg.Add(1)
-		go tC.clone(&wg, repo.SshUrl, repo.Name, tC.dir)
+		go tC.clone(&wg, repo.SshUrl, repo.Name, tC.dir, sem)
 	}
 
 	wg.Wait()
+	close(sem)
 	return nil
 }
 
-func (tC *teamCloner) clone(wg *sync.WaitGroup, sshUrl string, repoName string, dir string) {
+func (tC *teamCloner) clone(wg *sync.WaitGroup, sshUrl string, repoName string, dir string, sem chan struct{}) {
+	sem <- struct{}{}
+	defer func() { <-sem }()
+
 	defer wg.Done()
 	tC.shell.Exec("git", []string{"clone", sshUrl, fmt.Sprintf("%s/%s", dir, repoName)})
 }
