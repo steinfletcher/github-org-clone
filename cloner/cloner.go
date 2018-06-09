@@ -1,11 +1,12 @@
 package cloner
 
 import (
-	"github.com/steinfletcher/github-team-clone/github"
 	"errors"
 	"fmt"
 	"sync"
-	"github.com/steinfletcher/github-team-clone/shell"
+
+	"github.com/steinfletcher/github-org-clone/github"
+	"github.com/steinfletcher/github-org-clone/shell"
 )
 
 type Cloner interface {
@@ -14,15 +15,15 @@ type Cloner interface {
 
 type teamCloner struct {
 	githubCli github.Github
-	shell shell.Shell
-	dir string
+	shell     shell.Shell
+	dir       string
 }
 
 func NewCloner(g github.Github, shell shell.Shell, dir string) Cloner {
 	return &teamCloner{g, shell, dir}
 }
 
-func (tC * teamCloner) Clone(org string, team string) error {
+func (tC *teamCloner) Clone(org string, team string) error {
 	var repos []github.Repo
 	var err error
 

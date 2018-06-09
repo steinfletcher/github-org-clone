@@ -3,18 +3,18 @@ package main
 import (
 	"os"
 	"github.com/urfave/cli"
-	"github.com/steinfletcher/github-team-clone/github"
-	"github.com/steinfletcher/github-team-clone/shell"
-	"github.com/steinfletcher/github-team-clone/cloner"
+	"github.com/steinfletcher/github-org-clone/github"
+	"github.com/steinfletcher/github-org-clone/shell"
+	"github.com/steinfletcher/github-org-clone/cloner"
 	"log"
 )
 
 func main() {
 	app := cli.NewApp()
 	app.Author = "Stein Fletcher"
-	app.Name = "github-team-clone"
+	app.Name = "github-org-clone"
 	app.Usage = "clone github team repos"
-	app.UsageText = "github-team-clone -o MyOrg -t MyTeam"
+	app.UsageText = "github-org-clone -o MyOrg -t MyTeam"
 	app.Version = "0.0.1"
 	app.EnableBashCompletion = true
 	app.Description = "A simple cli to clone all the repos managed by a github team"

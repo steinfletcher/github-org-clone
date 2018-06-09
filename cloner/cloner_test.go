@@ -3,7 +3,7 @@ package cloner
 import (
 	"testing"
 	"github.com/stretchr/testify/assert"
-	"github.com/steinfletcher/github-team-clone/github"
+	"github.com/steinfletcher/github-org-clone/github"
 )
 
 func TestGetTeamId(t *testing.T) {
