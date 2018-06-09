@@ -111,7 +111,7 @@ func doGet(url string, username string, apiToken string) (error, *http.Response)
 	}
 
 	if !isSuccess(response) {
-		return errors.New(fmt.Sprintf("Error, github returned status=%s", response.StatusCode)), nil
+		return errors.New(fmt.Sprintf("Error, github returned status=%d", response.StatusCode)), nil
 	}
 
 	return nil, response
