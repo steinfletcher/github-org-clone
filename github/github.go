@@ -37,10 +37,11 @@ type Repo struct {
 
 func (g *githubCli) Teams(org string) (error, []Team) {
 	err, resp := doGet(fmt.Sprintf("https://api.github.com/orgs/%s/teams", org), g.username, g.apiToken)
-	defer resp.Body.Close()
 	if err != nil {
 		return err, nil
 	}
+	defer resp.Body.Close()
+
 	teams := make([]Team, 0)
 	bytes, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(bytes, &teams)
