@@ -16,7 +16,7 @@ Clone team repos
     github-org-clone -o MyOrg -t MyTeam
 
 
-Clone orgnisation repos
+Clone organisation repos
 
     github-org-clone -o MyOrg
 
