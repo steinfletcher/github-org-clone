@@ -1,0 +1,13 @@
+builds:
+  - binary: github-org-clone
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+
+release:
+  github:
+    owner: steinfletcher
+    name: github-org-clone
