@@ -7,6 +7,14 @@ import (
 	"github.com/steinfletcher/github-org-clone/shell"
 	"github.com/steinfletcher/github-org-clone/cloner"
 	"log"
+	"fmt"
+	"time"
+)
+
+var (
+	version = "dev"
+	commit  = ""
+	date    = time.Now().String()
 )
 
 func main() {
@@ -15,9 +23,13 @@ func main() {
 	app.Name = "github-org-clone"
 	app.Usage = "clone github team repos"
 	app.UsageText = "github-org-clone -o MyOrg -t MyTeam"
-	app.Version = "0.0.1"
+	app.Version = version
 	app.EnableBashCompletion = true
 	app.Description = "A simple cli to clone all the repos managed by a github team"
+	app.Metadata = map[string]interface{}{
+		"commit": commit,
+		"date": date,
+	}
 
 	app.Flags = []cli.Flag {
 		cli.StringFlag{
@@ -40,8 +52,7 @@ func main() {
 		},
 		cli.StringFlag{
 			Name: "dir, d",
-			Usage: "directory to clone into",
-			Value: "src",
+			Usage: "directory to clone into. Defaults to the org name or org/team name if defined",
 		},
 	}
 
@@ -62,6 +73,17 @@ func main() {
 
 		if len(org) == 0 {
 			die("github organisation (-o) not set", c)
+		}
+
+		if len(dir) == 0 {
+			if len(team) == 0 {
+				dir = org
+			} else {
+				if _, err := os.Stat(org); os.IsNotExist(err) {
+					os.Mkdir(org, os.ModePerm)
+				}
+				dir = fmt.Sprintf("%s/%s", org, team)
+			}
 		}
 
 		sh := shell.NewShell()

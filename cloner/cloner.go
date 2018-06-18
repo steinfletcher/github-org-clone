@@ -69,6 +69,7 @@ func (tC *teamCloner) clone(wg *sync.WaitGroup, sshUrl string, repoName string, 
 
 	defer wg.Done()
 	tC.shell.Exec("git", []string{"clone", sshUrl, fmt.Sprintf("%s/%s", dir, repoName)})
+	fmt.Println(fmt.Sprintf("Finished cloning %s", repoName))
 }
 
 func teamId(teams []github.Team, team string) (error, int) {
