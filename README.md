@@ -7,9 +7,11 @@ Requires that you pass a github api key (personal access token) and github usern
 
 ## Install
 
+The following script will install a binary from a tagged release 
+
     curl https://raw.githubusercontent.com/steinfletcher/github-org-clone/master/install.sh | sh
 
-Or using go
+Or install from master using go
 
     go get github.com/steinfletcher/github-org-clone
 
@@ -23,3 +25,5 @@ Clone team repos
 Clone organisation repos
 
     github-org-clone -o MyOrg
+
+
