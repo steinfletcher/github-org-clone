@@ -37,3 +37,40 @@ jobs:
 
       - store_test_results:
           path: /tmp/test-results
+
+  release:
+    docker:
+      - image: circleci/golang:1.10.3
+    working_directory: /go/src/github.com/steinfletcher/github-org-clone
+
+    steps:
+      - checkout
+      - run: curl -sL https://git.io/goreleaser | bash
+
+workflows:
+  version: 2
+
+  build_and_test:
+    jobs:
+    - build:
+       branches:
+         only: master
+       tags:
+         ignore: /.*/
+
+  release:
+    jobs:
+    - build:
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore: /.*/
+    - release:
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore: /.*/
+        requires:
+          - build
