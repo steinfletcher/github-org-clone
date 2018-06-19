@@ -45,6 +45,9 @@ jobs:
 
     steps:
       - checkout
+      - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+      - run: dep ensure
+      - run: make
       - run: curl -sL https://git.io/goreleaser | bash
 
 workflows:
