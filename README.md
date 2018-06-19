@@ -7,6 +7,10 @@ Requires that you pass a github api key (personal access token) and github usern
 
 ## Install
 
+    curl https://raw.githubusercontent.com/steinfletcher/github-org-clone/master/install.sh | sh
+
+Or using go
+
     go get github.com/steinfletcher/github-org-clone
 
 ## Use
