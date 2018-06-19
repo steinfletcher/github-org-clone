@@ -19,11 +19,16 @@ Or install from master using go
 
 Clone team repos
 
-    github-org-clone -o MyOrg -t MyTeam
-
+    github-org-clone --org MyOrg --team MyTeam
 
 Clone organisation repos
 
     github-org-clone -o MyOrg
 
+Override the default location
 
+    github-org-clone -o MyOrg -d ~/projects/work
+
+View docs
+
+    github-org-clone -h
