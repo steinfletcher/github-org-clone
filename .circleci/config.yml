@@ -53,10 +53,9 @@ workflows:
   build_and_test:
     jobs:
     - build:
-       branches:
-         only: master
-       tags:
-         ignore: /.*/
+        filters:
+          branches:
+            only: master
 
   release:
     jobs:
