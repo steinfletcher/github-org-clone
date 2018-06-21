@@ -17,6 +17,13 @@ Or install from master using go
 
 ## Use
 
+Export env vars in `~/.bashrc` or equivalent
+
+    export GITHUB_USER=<your github username>
+    export GITHUB_TOKEN=<a github personal access token with clone repo privileges>
+
+(Alternatively supply these as flags to the command `--username` and `--token`).
+
 Clone team repos
 
     github-org-clone --org MyOrg --team MyTeam
