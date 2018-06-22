@@ -9,7 +9,8 @@ Requires that you pass a github api key (personal access token) and github usern
 
 The following script will install a binary from a tagged release 
 
-    curl https://raw.githubusercontent.com/steinfletcher/github-org-clone/master/install.sh | sh
+    curl https://raw.githubusercontent.com/steinfletcher/github-org-clone/master/download.sh | sh
+    mv github-org-clone /usr/local/bin 
 
 Or install from master using go
 

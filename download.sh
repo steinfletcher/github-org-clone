@@ -23,10 +23,10 @@ EOF
 }
 
 parse_args() {
-  #BINDIR is ./bin unless set be ENV
+  #BINDIR is ./ unless set be ENV
   # over-ridden by flag below
 
-  BINDIR=${BINDIR:-./bin}
+  BINDIR=${BINDIR:-.}
   while getopts "b:dh?" arg; do
     case "$arg" in
       b) BINDIR="$OPTARG" ;;
