@@ -1,13 +1,13 @@
 package github
 
 import (
-	"net/http"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
-	"time"
-	"encoding/json"
+	"net/http"
 	"strings"
-	"errors"
+	"time"
 )
 
 func NewGithub(username string, apiToken string) Github {

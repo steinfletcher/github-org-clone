@@ -1,13 +1,13 @@
 package main
 
 import (
-	"os"
-	"github.com/urfave/cli"
+	"fmt"
+	"github.com/steinfletcher/github-org-clone/cloner"
 	"github.com/steinfletcher/github-org-clone/github"
 	"github.com/steinfletcher/github-org-clone/shell"
-	"github.com/steinfletcher/github-org-clone/cloner"
+	"github.com/urfave/cli"
 	"log"
-	"fmt"
+	"os"
 	"time"
 )
 
@@ -28,30 +28,30 @@ func main() {
 	app.Description = "A simple cli to clone all the repos managed by a github team"
 	app.Metadata = map[string]interface{}{
 		"commit": commit,
-		"date": date,
+		"date":   date,
 	}
 
-	app.Flags = []cli.Flag {
+	app.Flags = []cli.Flag{
 		cli.StringFlag{
-			Name: "org, o",
+			Name:  "org, o",
 			Usage: "github organisation",
 		},
 		cli.StringFlag{
-			Name: "team, t",
+			Name:  "team, t",
 			Usage: "github team",
 		},
 		cli.StringFlag{
-			Name: "username, u",
-			Usage: "github username",
+			Name:   "username, u",
+			Usage:  "github username",
 			EnvVar: "GITHUB_USER,GITHUB_USERNAME",
 		},
 		cli.StringFlag{
-			Name: "token, k",
-			Usage: "github personal access token",
+			Name:   "token, k",
+			Usage:  "github personal access token",
 			EnvVar: "GITHUB_TOKEN,GITHUB_API_KEY,GITHUB_PERSONAL_ACCESS_TOKEN",
 		},
 		cli.StringFlag{
-			Name: "dir, d",
+			Name:  "dir, d",
 			Usage: "directory to clone into. Defaults to the org name or org/team name if defined",
 		},
 	}

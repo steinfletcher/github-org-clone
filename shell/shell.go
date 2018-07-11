@@ -1,15 +1,15 @@
 package shell
 
 import (
-	"os/exec"
 	"fmt"
+	"os/exec"
 )
 
 type Shell interface {
 	Exec(cmd string, args []string) error
 }
 
-type shell struct {}
+type shell struct{}
 
 func NewShell() Shell {
 	return &shell{}

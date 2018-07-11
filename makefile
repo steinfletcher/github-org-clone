@@ -8,3 +8,5 @@ build:
 
 install:
 	go install
+
+all: test build install

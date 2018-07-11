@@ -1,16 +1,16 @@
 package cloner
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"github.com/steinfletcher/github-org-clone/github"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestGetTeamId(t *testing.T) {
 	teams := []github.Team{
-		{Name:"team1", Id:1},
-		{Name:"team2", Id:51},
-		{Name:"team3", Id:101},
+		{Name: "team1", Id: 1},
+		{Name: "team2", Id: 51},
+		{Name: "team3", Id: 101},
 	}
 
 	_, id := teamId(teams, "team3")
@@ -20,7 +20,7 @@ func TestGetTeamId(t *testing.T) {
 
 func TestGetTeamIdErrorsIfNotFound(t *testing.T) {
 	teams := []github.Team{
-		{Name:"team1", Id:1},
+		{Name: "team1", Id: 1},
 	}
 
 	err, _ := teamId(teams, "team3")
