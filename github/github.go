@@ -10,13 +10,14 @@ import (
 	"time"
 )
 
-func NewGithub(username string, apiToken string) Github {
-	return &githubCli{username, apiToken}
+func NewGithub(username string, apiToken string, apiUrl string) Github {
+	return &githubCli{username, apiToken, apiUrl}
 }
 
 type githubCli struct {
 	username string
 	apiToken string
+	apiUrl   string
 }
 
 type Github interface {
@@ -36,7 +37,7 @@ type Repo struct {
 }
 
 func (g *githubCli) Teams(org string) (error, []Team) {
-	err, resp := doGet(fmt.Sprintf("https://api.github.com/orgs/%s/teams", org), g.username, g.apiToken)
+	err, resp := doGet(fmt.Sprintf("%s/orgs/%s/teams", g.apiUrl, org), g.username, g.apiToken)
 	if err != nil {
 		return err, nil
 	}
@@ -52,7 +53,7 @@ func (g *githubCli) TeamRepos(teamId int) (error, []Repo) {
 	var page = 1
 	var repos []Repo
 	for {
-		err, res := doGet(fmt.Sprintf("https://api.github.com/teams/%d/repos?page=%d", teamId, page), g.username, g.apiToken)
+		err, res := doGet(fmt.Sprintf("%s/teams/%d/repos?page=%d", g.apiUrl, teamId, page), g.username, g.apiToken)
 		if err != nil {
 			return err, nil
 		}
@@ -78,7 +79,7 @@ func (g *githubCli) OrgRepos(org string) (error, []Repo) {
 	var page = 1
 	var repos []Repo
 	for {
-		err, res := doGet(fmt.Sprintf("https://api.github.com/orgs/%s/repos?page=%d", org, page), g.username, g.apiToken)
+		err, res := doGet(fmt.Sprintf("%s/orgs/%s/repos?page=%d", g.apiUrl, org, page), g.username, g.apiToken)
 		if err != nil {
 			return err, nil
 		}

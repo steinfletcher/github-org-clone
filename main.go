@@ -54,6 +54,11 @@ func main() {
 			Name:  "dir, d",
 			Usage: "directory to clone into. Defaults to the org name or org/team name if defined",
 		},
+		cli.StringFlag{
+			Name:  "api, a",
+			Value: "https://api.github.com",
+			Usage: "github api url",
+		},
 	}
 
 	app.Action = func(c *cli.Context) error {
@@ -62,6 +67,7 @@ func main() {
 		team := c.String("team")
 		org := c.String("org")
 		dir := c.String("dir")
+		api := c.String("api")
 
 		if len(username) == 0 {
 			die("env var GITHUB_USERNAME or flag -u must be set", c)
@@ -87,7 +93,7 @@ func main() {
 		}
 
 		sh := shell.NewShell()
-		githubCli := github.NewGithub(username, token)
+		githubCli := github.NewGithub(username, token, api)
 		cl := cloner.NewCloner(githubCli, sh, dir)
 
 		err := cl.Clone(org, team)

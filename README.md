@@ -36,6 +36,10 @@ Clone organisation repos
 Override the default location
 
     github-org-clone -o MyOrg -d ~/projects/work
+    
+Override the github api url
+
+    github-org-clone -o MyOrg -a https://mycustomdomain.com
 
 View docs
 

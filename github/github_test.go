@@ -15,7 +15,7 @@ func TestFetchTeams(t *testing.T) {
 		Reply(200).
 		File("../testdata/teamsResponse.json")
 
-	githubCli := NewGithub("username", "password")
+	githubCli := NewGithub("username", "password", "https://api.github.com")
 
 	_, teams := githubCli.Teams("MyOrg")
 
@@ -30,7 +30,7 @@ func TestFetchTeamRepos(t *testing.T) {
 	teamReposResp("2", "<https://api.github.com/teams/2285789/repos?page=1>; rel=\"prev\", <https://api.github.com/teams/2285789/repos?page=3>; rel=\"next\", <https://api.github.com/teams/2285789/repos?page=1>; rel=\"first\", <https://api.github.com/teams/2285789/repos?page=3>; rel=\"last\"", "teamReposResponsePage2.json")
 	teamReposResp("3", "<https://api.github.com/teams/2285789/repos?page=2>; rel=\"prev\", <https://api.github.com/teams/2285789/repos?page=1>; rel=\"first\"", "teamReposResponsePage3.json")
 
-	githubCli := NewGithub("username", "password")
+	githubCli := NewGithub("username", "password", "https://api.github.com")
 
 	_, teams := githubCli.TeamRepos(2285789)
 
