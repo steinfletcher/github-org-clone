@@ -9,38 +9,54 @@ Requires that you pass a github api key (personal access token) and github usern
 
 The following script will install a binary from a tagged release 
 
-    curl https://raw.githubusercontent.com/steinfletcher/github-org-clone/master/download.sh | sh
-    mv github-org-clone /usr/local/bin 
+```bash
+curl https://raw.githubusercontent.com/steinfletcher/github-org-clone/master/download.sh | sh
+mv github-org-clone /usr/local/bin
+```
 
 Or install from master using go
 
-    go get github.com/steinfletcher/github-org-clone
+```bash
+go get github.com/steinfletcher/github-org-clone
+```
 
 ## Use
 
 Export env vars in `~/.bashrc` or equivalent
 
-    export GITHUB_USER=<your github username>
-    export GITHUB_TOKEN=<a github personal access token with clone repo privileges>
+```bash
+export GITHUB_USER=<your github username>
+export GITHUB_TOKEN=<a github personal access token with clone repo privileges>
+```
 
 (Alternatively supply these as flags to the command `--username` and `--token`).
 
 Clone team repos
 
-    github-org-clone --org MyOrg --team MyTeam
+```bash
+github-org-clone --org MyOrg --team MyTeam
+```
 
 Clone organisation repos
 
-    github-org-clone -o MyOrg
+```bash
+github-org-clone -o MyOrg
+```
 
 Override the default location
 
-    github-org-clone -o MyOrg -d ~/projects/work
-    
+```bash
+github-org-clone -o MyOrg -d ~/projects/work
+```
+
 Override the github api url
 
-    github-org-clone -o MyOrg -a https://mycustomdomain.com
+```bash
+github-org-clone -o MyOrg -a https://mycustomdomain.com
+```
 
 View docs
 
-    github-org-clone -h
+```bash
+github-org-clone -h
+```
