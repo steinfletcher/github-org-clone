@@ -1,0 +1,37 @@
+language: go
+
+go:
+  - "1.11"
+  - "stable"
+
+before_install:
+  - go get -u -v github.com/axw/gocov/gocov
+  - go get -u -v github.com/mattn/goveralls
+
+script:
+  - diff -u <(echo -n) <(gofmt -s -d ./)
+  - diff -u <(echo -n) <(go vet ./...)
+  - go test ./... -v -race
+
+env:
+  - GO111MODULE=on
+
+jobs:
+  include:
+    - stage: build
+      script: make build
+
+    - stage: test
+      script: make test
+
+    - stage: release
+      if: branch = master
+      name: Releasing
+      script: skip
+      deploy:
+        provider: script
+        script: bash scripts/deploy.sh staging
+        on:
+          tags: true
+          branch: master
+          condition: "$TRAVIS_TAG =~ ^v.*$"

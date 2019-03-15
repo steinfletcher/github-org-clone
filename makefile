@@ -6,7 +6,4 @@ test:
 build:
 	go build
 
-install:
-	go install
-
-all: test build install
+all: test build
