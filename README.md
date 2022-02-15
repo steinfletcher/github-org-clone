@@ -55,6 +55,12 @@ Override the github api url
 github-org-clone -o MyOrg -a https://mycustomdomain.com
 ```
 
+For enterprise installations include the full path to the github api
+
+```bash
+github-org-clone -o MyOrg -a https://mycustomdomain.com/api/v3
+```
+
 View docs
 
 ```bash
